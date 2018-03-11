@@ -5,30 +5,30 @@ var express     = require("express"),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose")
     
-mongoose.connect("mongodb://localhost/yelp_camp",{useMongoClient: true});
+mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 
 
 //Schema setup
-var campgroundSchema= new mongoose.Schema({
+var wordSchema= new mongoose.Schema({
     name: String,
     image: String
 });
 
-var Campground=mongoose.model("Campground",campgroundSchema);
+var Word=mongoose.model("Word",wordSchema);
     
     
 app.get("/",function(req,res){
-    res.render("landing")
+    res.render("newsearch")
     
 });
 
 
 
-app.get("/campgrounds",function(req,res){
+app.get("/searchpage",function(req,res){
     
-    Campground.find({},function(err,allCampgrounds){
+   Word.find({},function(err,allCampgrounds){
         if(err){
             console.log(err);
         }else
@@ -43,9 +43,9 @@ app.get("/campgrounds",function(req,res){
 });
 
 
-app.get("/campgrounds/new",function(req,res){
-        res.render("new");
-    });
+// app.get("/searchpage/new",function(req,res){
+//         res.render("new");
+//     });
 
 
 
@@ -55,8 +55,8 @@ app.post("/campgrounds",function(req,res){
     var name=req.body.name;
     var image=req.body.image;
     var newCampground= {name: name, image: image};
-    // campgrounds.push(newCampground);
-      Campground.create(
+    //Words.push(newCampground);
+     Word.create(
                       newCampground
                      ,function(err,campground){
                             //   console.log("Test");
