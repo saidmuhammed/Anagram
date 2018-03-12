@@ -3,7 +3,8 @@
 var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose")
+    mongoose    = require("mongoose"),
+    anagram     = require("anagram")
     
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -15,6 +16,7 @@ var wordSchema= new mongoose.Schema({
     name: String,
     image: String
 });
+
 
 var Word=mongoose.model("Word",wordSchema);
     
